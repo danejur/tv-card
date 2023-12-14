@@ -23,6 +23,7 @@ mdiFastForward,
 mdiVolumeMute,
 mdiVolumeMinus,
 mdiVolumePlus,
+mdiStop
 } from "https://unpkg.com/@mdi/js@6.4.95/mdi.js?module"
 
 class TVCardServices extends LitElement {
@@ -271,9 +272,23 @@ class TVCardServices extends LitElement {
           </div>
 
           ${
-            this._config.reverse || this._config.play || this._config.forward
+            this._config.stop ||
+            this._config.reverse ||
+            this._config.play ||
+            this._config.forward
               ? html`
                   <div class="row">
+                    ${this._config.stop
+                      ? html`
+                          <ha-icon-button
+                            .action="${"stop"}"
+                            @click="${this.handleActionClick}"
+                            icon="mdi:stop"
+                            .path=${mdiStop}
+                            title="Stop"
+                          ></ha-icon-button>
+                        `
+                      : emptyButton}
                     ${this._config.reverse
                       ? html`
                           <ha-icon-button
